@@ -63,8 +63,8 @@ sudo apt-mark hold kubelet kubeadm kubectl containerd
 
 #Check the status of our kubelet and our container runtime, containerd.
 #The kubelet will enter a crashloop until a cluster is created or the node is joined to an existing cluster.
-sudo systemctl status kubelet.service 
-sudo systemctl status containerd.service 
+#sudo systemctl status kubelet.service 
+#sudo systemctl status containerd.service 
 
 
 #Ensure both are set to start when the system starts up.
