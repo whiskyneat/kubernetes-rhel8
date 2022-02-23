@@ -1,0 +1,42 @@
+## k8notes ##
+
+kubectl:
+    - Performs commands to control your k8s cluster
+    - Operations ( What you want to do )
+    - Resources ( What you want to do it to )
+    - Output ( If there's output, it's format ex - json,yaml )
+
+
+Operations (Critical list of kubectl commands):
+    - apply / create = create Resources
+    - run = start a pod from an image
+    - explain = documentation of Resources
+    - delete = delete resource(s)
+    - get = list resource(s)
+    - describe = detailed resource information
+    - exec = execute a command on a container
+    - logs = view logs on a container
+
+Resources
+    - nodes (no)
+    - pods (po)
+    - services (svc)
+    ..and many more
+
+Output
+    - wide = output additional information
+    - yaml = YAML formatted API object
+    - json = JSON formatted API object
+    - dry-run = print an object without sending it to the API server
+
+
+------------------------------------
+
+kubectl command line examples:
+
+#kubectl get pods pod1 --output=yaml
+#kubectl create deployment nginx --image=nginx
+
+https://kubernetes.io/docs/reference/kubectl/kubectl
+https://kubernetes.io/docs/reference/kubectl/cheatsheet
+

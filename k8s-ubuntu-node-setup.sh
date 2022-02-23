@@ -1,10 +1,5 @@
 #!/bin/bash
 
-#1 Master, 3 Nodes
-#
-
-#### 1.0 Basics ####
-
 #disable swap
 sudo swapoff -a
 
@@ -27,20 +22,17 @@ EOF
 #Apply sysctl params without reboot
 sudo sysctl --system
 
-#### 2.0 Install containerd ####
-sudo apt-get update 
+#Update system
+sudo apt-get update
 sudo apt-get install -y containerd
 
-#Create a containerd configuration file
+#Configure containerd
 sudo mkdir -p /etc/containerd
 sudo containerd config default | sudo tee /etc/containerd/config.toml
-
-#Change cgroup driver to containerd
 sudo sed -i 's/            SystemdCgroup = false/            SystemdCgroup = true/' /etc/containerd/config.toml
+
 #Restart containerd with the new configuration
 sudo systemctl restart containerd
-
-
 
 #Install Kubernetes packages - kubeadm, kubelet and kubectl
 #Add Google's apt repository gpg key
@@ -71,24 +63,5 @@ sudo apt-mark hold kubelet kubeadm kubectl containerd
 sudo systemctl enable kubelet.service
 sudo systemctl enable containerd.service
 
-
-###################### BOOTSTRAPPING CLUSTER #######################
-
-sudo wget https://docs.projectcalico.org/manifests/calico.yaml
-
-sudo kubeadm init
-
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-## Deploy Pod Network
-kubectl apply -f calico.yaml
-
-#### NOTES ####
-#Check manifests for control-plane pod:
-# ls /etc/kubernetes/manifests
-
-#Check directory where kubeconfig files live for each of the control plane pods
-# ls /etc/kubernetes
-
+##Run join command from master.
+echo "Run join command from master to join to cluster."
